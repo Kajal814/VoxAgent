@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 import helmet from "helmet";
 import {rateLimit} from "express-rate-limit";
+import connectDB from "./config/db.js";
 
 
 dotenv.config();
@@ -75,7 +76,14 @@ app.use((err,req,res,next)=>{
 //start server
 const PORT = process.env.PORT || 5000;
 
+const startServer=async()=>{
+    await connectDB();
+
+
 app.listen(PORT,()=>{
     console.log(`VoxAgent server running on port ${PORT}`);
 });
+}
+
+startServer();
 
